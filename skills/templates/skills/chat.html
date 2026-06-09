@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100">
+
+<div class="max-w-4xl mx-auto mt-10 bg-white rounded-2xl shadow-lg overflow-hidden">
+
+    <!-- HEADER -->
+
+    <div class="bg-teal-600 text-white px-6 py-4 flex items-center gap-3">
+
+        <div class="w-12 h-12 rounded-full bg-white text-teal-600 flex items-center justify-center font-bold text-xl">
+            {{ receiver.username|slice:":1"|upper }}
+        </div>
+
+        <div>
+            <h2 class="text-2xl font-bold">
+                {{ receiver.username }}
+            </h2>
+
+            <p class="text-sm text-teal-100">
+                Online
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- CHAT AREA -->
+
+    <div id="chatBox"
+         class="h-[500px] overflow-y-scroll p-6 bg-slate-100 space-y-4">
+
+    {% for msg in messages %}
+
+        {% if msg.sender == request.user %}
+
+        <!-- SENT MESSAGE -->
+
+        <div class="flex justify-end items-end gap-2">
+
+            <!-- MESSAGE -->
+
+            <div class="bg-teal-600 text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-sm shadow">
+
+                <!-- TEXT -->
+                {% if msg.message %}
+                <p class="break-words">
+                    {{ msg.message }}
+                </p>
+                {% endif %}
+
+                <!-- IMAGE / FILE -->
+
+                {% if msg.file %}
+
+                    {% if ".jpg" in msg.file.url or ".png" in msg.file.url or ".jpeg" in msg.file.url or ".webp" in msg.file.url %}
+
+                    <img
+                        src="{{ msg.file.url }}"
+                        class="rounded-xl mt-2 w-60"
+                    >
+
+                    {% else %}
+
+                    <a href="{{ msg.file.url }}"
+                       target="_blank"
+                       class="block underline mt-2 text-sm">
+                       📎 Download File
+                    </a>
+
+                    {% endif %}
+
+                {% endif %}
+
+                <!-- VOICE -->
+
+                {% if msg.voice %}
+                <audio controls class="mt-2 w-full">
+                    <source src="{{ msg.voice.url }}">
+                </audio>
+                {% endif %}
+
+                <!-- TIME -->
+
+                <p class="text-[11px] mt-2 text-right text-slate-200">
+                    {{ msg.timestamp|date:"h:i A" }} ✓✓
+                </p>
+
+            </div>
+
+            <!-- PROFILE -->
+
+            <div class="w-10 h-10 rounded-full bg-teal-700 text-white flex items-center justify-center font-bold">
+
+                {{ request.user.username|slice:":1"|upper }}
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <!-- RECEIVED MESSAGE -->
+
+        <div class="flex justify-start items-end gap-2">
+
+            <!-- PROFILE -->
+
+            <div class="w-10 h-10 rounded-full bg-slate-400 text-white flex items-center justify-center font-bold">
+
+                {{ receiver.username|slice:":1"|upper }}
+
+            </div>
+
+            <!-- MESSAGE -->
+
+            <div class="bg-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-sm shadow border">
+
+                <!-- TEXT -->
+
+                {% if msg.message %}
+                <p class="break-words">
+                    {{ msg.message }}
+                </p>
+                {% endif %}
+
+                <!-- IMAGE / FILE -->
+
+                {% if msg.file %}
+
+                    {% if ".jpg" in msg.file.url or ".png" in msg.file.url or ".jpeg" in msg.file.url or ".webp" in msg.file.url %}
+
+                    <img
+                        src="{{ msg.file.url }}"
+                        class="rounded-xl mt-2 w-60"
+                    >
+
+                    {% else %}
+
+                    <a href="{{ msg.file.url }}"
+                       target="_blank"
+                       class="block text-blue-600 underline mt-2 text-sm">
+                       📎 Download File
+                    </a>
+
+                    {% endif %}
+
+                {% endif %}
+
+                <!-- VOICE -->
+
+                {% if msg.voice %}
+                <audio controls class="mt-2 w-full">
+                    <source src="{{ msg.voice.url }}">
+                </audio>
+                {% endif %}
+
+                <!-- TIME -->
+
+                <p class="text-[11px] mt-2 text-right text-slate-400">
+                    {{ msg.timestamp|date:"h:i A" }}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+    </div>
+
+
+    <!-- MESSAGE FORM -->
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="flex items-center gap-3 p-4 border-t bg-white">
+
+        {% csrf_token %}
+
+        <!-- MESSAGE -->
+
+        <input
+            type="text"
+            name="message"
+            placeholder="Type message..."
+            class="flex-1 border rounded-full px-4 py-3 outline-none focus:ring-2 focus:ring-teal-500"
+        >
+
+        <!-- FILE -->
+
+        <label class="cursor-pointer bg-slate-200 px-4 py-3 rounded-full hover:bg-slate-300 transition">
+
+            📎
+
+            <input
+                type="file"
+                name="file"
+                class="hidden"
+            >
+
+        </label>
+
+        <!-- VOICE -->
+
+        <button
+            type="button"
+            id="recordBtn"
+            class="bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-full transition">
+
+            🎤
+
+        </button>
+
+        <!-- SEND -->
+
+        <button
+            type="submit"
+            class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-full transition">
+
+            Send
+
+        </button>
+
+    </form>
+
+</div>
+
+
+<script>
+
+let mediaRecorder;
+let audioChunks = [];
+
+const recordBtn = document.getElementById("recordBtn");
+const form = document.querySelector("form");
+
+recordBtn.addEventListener("click", async () => {
+
+    // START RECORDING
+
+    if (!mediaRecorder || mediaRecorder.state === "inactive") {
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true
+        });
+
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.start();
+
+        audioChunks = [];
+
+        recordBtn.innerText = "⏹";
+
+        mediaRecorder.addEventListener("dataavailable", event => {
+            audioChunks.push(event.data);
+        });
+
+    }
+
+    // STOP RECORDING
+
+    else {
+
+        mediaRecorder.stop();
+
+        recordBtn.innerText = "🎤";
+
+        mediaRecorder.addEventListener("stop", () => {
+
+            const audioBlob = new Blob(audioChunks, {
+                type: "audio/webm"
+            });
+
+            const audioFile = new File(
+                [audioBlob],
+                "voice_message.webm",
+                { type: "audio/webm" }
+            );
+
+            const dataTransfer = new DataTransfer();
+
+            dataTransfer.items.add(audioFile);
+
+            let voiceInput = document.getElementById("voiceFile");
+
+            if (!voiceInput) {
+
+                voiceInput = document.createElement("input");
+
+                voiceInput.type = "file";
+                voiceInput.name = "voice";
+                voiceInput.id = "voiceFile";
+                voiceInput.hidden = true;
+
+                form.appendChild(voiceInput);
+            }
+
+            voiceInput.files = dataTransfer.files;
+        });
+    }
+});
+
+
+// AUTO SCROLL TO BOTTOM
+
+const chatBox = document.getElementById("chatBox");
+
+chatBox.scrollTop = chatBox.scrollHeight;
+
+</script>
+
+</body>
+</html>

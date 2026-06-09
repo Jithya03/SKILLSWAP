@@ -1,0 +1,209 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillSwap | Learn & Teach</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-white text-slate-800">
+
+<!-- NAVBAR -->
+<nav class="bg-white border-b sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-teal-600">SkillSwap</h1>
+
+    <div class="flex gap-6 items-center">
+      <a href="{% url 'skills:teach' %}" class="hover:text-teal-600">Teach</a>
+      <a href="{% url 'skills:explore' %}" class="hover:text-teal-600">Explore</a>
+      <a href="{% url 'skills:How_it_Works' %}" class="hover:text-teal-600">How it Works</a>
+      <button class="border px-4 py-2 rounded-lg hover:bg-slate-50"><a href="{% url 'skills:log1' %}" >Login</a></button>
+      <button class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">
+        <a href="{% url 'skills:signup' %}" id ='sig'>Sign up</a>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="bg-teal-900 text-white py-24 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-5xl font-extrabold mb-6">
+      Learn a Skill.  
+      <span class="text-teal-300">Share a Skill.</span>
+    </h2>
+
+    <p class="text-xl text-teal-100 mb-10">
+      SkillSwap connects learners and teachers through skill exchange.
+    </p>
+
+    <div class="flex bg-white rounded-xl overflow-hidden max-w-2xl mx-auto shadow-xl">
+      <input
+       type="text" id="searchInput"
+        placeholder="Search a skill (coding, design, yoga...)"
+        class="flex-grow p-4 text-gray-800 outline-none"
+      />
+      <button onclick="searchSkill()" 
+      class="bg-teal-600 px-6 text-white font-bold hover:bg-teal-700">
+      Explore
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="max-w-7xl mx-auto px-4 py-20">
+  <h3 class="text-3xl font-bold text-center mb-12">Popular Categories</h3>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div class="category-card"><i class="fa-solid fa-code"></i>Coding</div>
+    <div class="category-card"><i class="fa-solid fa-palette"></i>Design</div>
+    <div class="category-card"><i class="fa-solid fa-utensils"></i>Cooking</div>
+    <div class="category-card"><i class="fa-solid fa-person-rays"></i>Wellness</div>
+  </div>
+</section>
+
+<!-- FEATURED SKILLS -->
+<section class="bg-slate-50 py-20 px-4">
+  <div class="max-w-7xl mx-auto">
+    <h3 class="text-3xl font-bold mb-10 text-center">Featured Skills</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="skill-card">
+        <h4>React for Beginners</h4>
+        <p>Learn React from scratch by swapping your skills.</p>
+        <span>⭐ 4.9 · 1.2k learners</span>
+      </div>
+
+      <div class="skill-card">
+        <h4>Yoga & Mindfulness</h4>
+        <p>Daily yoga routines from certified instructors.</p>
+        <span>⭐ 5.0 · 800 learners</span>
+      </div>
+
+      <div class="skill-card">
+        <h4>Graphic Design Basics</h4>
+        <p>Typography, color theory, and tools.</p>
+        <span>⭐ 4.8 · 950 learners</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="max-w-7xl mx-auto px-4 py-20">
+  <h3 class="text-3xl font-bold text-center mb-14">How SkillSwap Works</h3>
+
+  <div class="grid md:grid-cols-3 gap-10 text-center">
+    <div>
+      <i class="fa-solid fa-magnifying-glass text-4xl text-teal-600 mb-4"></i>
+      <h4 class="font-bold text-xl">Find a Skill</h4>
+      <p class="text-slate-600">Explore skills taught by real people.</p>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-repeat text-4xl text-teal-600 mb-4"></i>
+      <h4 class="font-bold text-xl">Swap Knowledge</h4>
+      <p class="text-slate-600">Teach what you know in return.</p>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-graduation-cap text-4xl text-teal-600 mb-4"></i>
+      <h4 class="font-bold text-xl">Grow Together</h4>
+      <p class="text-slate-600">Learn without spending money.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-teal-600 text-white py-20 text-center">
+  <h3 class="text-4xl font-bold mb-6">Start learning today</h3>
+  <p class="mb-8 text-teal-100">Join thousands of learners and teachers</p>
+  <button class="bg-white text-teal-700 px-8 py-3 rounded-xl font-bold">
+    Join SkillSwap
+  </button>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm">
+  © 2026 SkillSwap · Learn by sharing
+</footer>
+
+<!-- REUSABLE STYLES -->
+<style>
+  #log{
+    text-decoration: none;
+  }
+  #sig{
+    text-decoration: none;
+    }
+  .category-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #e5e7eb;
+    transition: 0.3s;
+  }
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  }
+  .category-card i {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 12px;
+    color: #14b8a6;
+  }
+  .skill-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+  }
+  .skill-card h4 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+</style>
+
+<!-- ADD THIS SCRIPT HERE -->
+<script>
+  function searchSkill() {
+    const skill = document.getElementById("searchInput").value.trim();
+
+    if (skill !== "") {
+      localStorage.setItem("searchSkill", skill);
+      window.location.href = "{% url 'skills:explore' %}";
+    }
+  }
+</script>
+
+</body>
+</html>
+<!-- <div style="text-align:center; margin-top:50px;">
+    <h1>Welcome to Django OTP Auth</h1>
+    <p>Please choose an option below:</p>
+
+    <div style="margin-top:30px;">
+        <a href="{% url 'skills:log1' %}" 
+           style="padding:10px 20px; background-color:#4CAF50; color:white; text-decoration:none; border-radius:5px; margin-right:10px;">
+           Login
+        </a>
+
+        <a href="{% url 'skills:signup1' %}" 
+           style="padding:10px 20px; background-color:#2196F3; color:white; text-decoration:none; border-radius:5px;">
+           Sign Up
+        </a>
+    </div>
+</div> -->
+{% endblock %}

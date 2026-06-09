@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Swaps | SkillSwap</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-slate-100 text-slate-800">
+
+<!-- NAVBAR -->
+
+<nav class="bg-white shadow">
+
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+
+        <!-- LOGO -->
+        <h1 class="text-2xl font-bold text-teal-600">
+            SkillSwap
+        </h1>
+
+        <!-- MENU -->
+        <div class="flex gap-6 items-center">
+
+            <a href="{% url 'skills:explore' %}"
+               class="hover:text-teal-600 font-medium transition">
+
+                <i class="fa-solid fa-compass"></i>
+                Explore
+            </a>
+
+            <a href="{% url 'skills:swap_dashboard' %}"
+               class="text-teal-600 font-semibold">
+
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                Skill Swap
+            </a>
+
+            <a href="{% url 'skills:inbox' %}"
+               class="hover:text-teal-600 font-medium transition">
+
+                <i class="fa-solid fa-message"></i>
+                Messages
+            </a>
+
+            <a href="{% url 'skills:learner_profile' %}"
+               class="hover:text-teal-600 font-medium transition">
+
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </a>
+
+            <a href="{% url 'skills:logout' %}"
+               class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- PAGE -->
+
+<div class="max-w-5xl mx-auto mt-10 mb-10">
+
+    <!-- TITLE -->
+
+    <div class="mb-8">
+
+        <h1 class="text-4xl font-bold text-teal-600">
+            Active Skill Swaps
+        </h1>
+
+        <p class="text-slate-500 mt-2">
+            Manage your current skill exchange partners.
+        </p>
+
+    </div>
+
+
+    
+        <!-- SWAP LIST -->
+
+<div class="space-y-6">
+
+{% for teacher in teachers %}
+
+<div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row md:justify-between md:items-center gap-6">
+
+    <!-- LEFT -->
+
+    <div>
+
+        <div class="flex items-center gap-4">
+
+            {% if teacher.profile_image %}
+
+            <img
+                src="{{ teacher.profile_image.url }}"
+                class="w-16 h-16 rounded-full object-cover"
+            >
+
+            {% else %}
+
+            <div class="w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center">
+
+                <i class="fa-solid fa-user text-2xl text-teal-600"></i>
+
+            </div>
+
+            {% endif %}
+
+            <div>
+
+                <h2 class="text-2xl font-bold">
+                    {{ teacher.full_name }}
+                </h2>
+
+                <p class="text-slate-500 text-sm">
+                    Active Learning Partner
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5 space-y-2">
+
+            <p class="text-slate-700">
+
+                <span class="font-semibold text-teal-600">
+                    You Teach:
+                </span>
+
+                {{ learner.skill_to_teach }}
+
+            </p>
+
+            <p class="text-slate-700">
+
+                <span class="font-semibold text-blue-600">
+                    You Learn:
+                </span>
+
+                {{ learner.skill_to_learn }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT -->
+
+    <div class="flex flex-wrap gap-3">
+
+        <!-- CHAT -->
+
+        <a href="{% url 'skills:chat' teacher.user.id %}"
+           class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-3 rounded-xl transition shadow">
+
+            <i class="fa-solid fa-comments"></i>
+            Open Chat
+        </a>
+
+        <!-- VIDEO CALL -->
+        
+        <a href="{% url 'skills:video_call' teacher.user.id %}"
+   class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl transition shadow">
+
+            <i class="fa-solid fa-video"></i>
+            Video Call
+        </a>
+
+        <!-- END SWAP -->
+
+        <button
+            class="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl transition shadow">
+
+            <i class="fa-solid fa-xmark"></i>
+            End Swap
+        </button>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="bg-white p-10 rounded-2xl shadow text-center">
+
+    <h2 class="text-2xl font-bold text-slate-700 mb-3">
+        No Active Swaps
+    </h2>
+
+    <p class="text-slate-500">
+        No teachers found for your learning skill.
+    </p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+        
+
+                 
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

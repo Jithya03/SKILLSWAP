@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teaching Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100">
+
+<div class="max-w-5xl mx-auto mt-10">
+
+    <h1 class="text-4xl font-bold text-teal-600 mb-8">
+        Teaching Dashboard
+    </h1>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- Students -->
+
+        <div class="bg-white p-6 rounded-2xl shadow">
+
+            <h2 class="text-2xl font-bold mb-4">
+                My Students
+            </h2>
+
+            <div class="space-y-4">
+
+                <!-- Student -->
+
+                {% for student in students %}
+
+<div class="border p-4 rounded-xl flex justify-between items-center">
+
+    <div>
+
+       <h3 class="font-bold text-lg">
+    {{ student.user.username }}
+</h3>
+
+<p class="text-slate-500">
+    Wants to learn: {{ student.skill_to_learn }}
+</p>
+
+    </div>
+
+    <a href="{% url 'skills:chat' student.user.id %}"
+       class="bg-teal-600 text-white px-4 py-2 rounded-lg">
+
+       Chat
+
+    </a>
+
+</div>
+
+{% endfor %}
+
+                        
+
+           
+
+            </div>
+
+        </div>
+
+
+        <!-- Teaching Stats -->
+
+        <div class="bg-white p-6 rounded-2xl shadow">
+
+            <h2 class="text-2xl font-bold mb-4">
+                Teaching Stats
+            </h2>
+
+            <div class="space-y-5">
+
+                <div class="bg-teal-50 p-5 rounded-xl">
+
+                    <p class="text-slate-500">
+                        Total Students
+                    </p>
+
+                    <h3 class="text-3xl font-bold text-teal-600">
+                        12
+                    </h3>
+
+                </div>
+
+                <div class="bg-blue-50 p-5 rounded-xl">
+
+                    <p class="text-slate-500">
+                        Skills Teaching
+                    </p>
+
+                    <h3 class="text-3xl font-bold text-blue-600">
+                        3
+                    </h3>
+
+                </div>
+
+                <div class="bg-purple-50 p-5 rounded-xl">
+
+                    <p class="text-slate-500">
+                        Active Sessions
+                    </p>
+
+                    <h3 class="text-3xl font-bold text-purple-600">
+                        5
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

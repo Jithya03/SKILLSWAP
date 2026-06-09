@@ -1,0 +1,347 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillSwap Register</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    .register-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background Glow Effects */
+    .register-section::before,
+    .register-section::after {
+      content: "";
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: 0;
+    }
+
+    .register-section::before {
+      background: rgba(20, 184, 166, 0.25);
+      top: -120px;
+      left: -120px;
+    }
+
+    .register-section::after {
+      background: rgba(59, 130, 246, 0.25);
+      bottom: -120px;
+      right: -120px;
+    }
+
+    /* Register Card */
+    .register-card {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 40px;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+      animation: fadeUp 0.7s ease;
+    }
+
+    .register-title {
+      font-size: 34px;
+      font-weight: 700;
+      text-align: center;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .register-subtitle {
+      text-align: center;
+      color: #cbd5e1;
+      margin-bottom: 35px;
+      font-size: 15px;
+    }
+
+    /* Form Group */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: white;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s ease;
+    }
+
+    .form-input::placeholder {
+      color: #94a3b8;
+    }
+
+    .form-input:focus {
+      border-color: #14b8a6;
+      background: rgba(16, 121, 121, 0.08);
+      box-shadow: 0 0 0 4px rgba(25, 194, 174, 0.2);
+    }
+
+    /* Role Selection */
+    .role-container {
+      display: flex;
+      gap: 15px;
+    }
+
+    .role-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(43, 132, 126, 0.12);
+      background: #18847b0d;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+      font-weight: 500;
+    }
+
+    .role-box:hover {
+      transform: translateY(-2px);
+      border-color: #14b8a6;
+      background: rgba(20,184,166,0.15);
+    }
+
+    .role-box input {
+      accent-color: #14b8a6;
+    }
+
+    /* Button */
+    .btn-primary {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(to right, #14b8a6, #0f766e);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 10px;
+      box-shadow: 0 10px 25px rgba(20,184,166,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(20,184,166,0.4);
+    }
+
+    /* Login Text */
+    .login-text {
+      text-align: center;
+      color: #cbd5e1;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    .login-text a {
+      color: #2dd4bf;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .login-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animation */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .register-card {
+        padding: 30px 22px;
+      }
+
+      .register-title {
+        font-size: 28px;
+      }
+
+      .role-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="register-section">
+
+  <div class="register-card">
+
+    <!-- Heading -->
+    <h2 class="register-title">
+      Create Account 
+    </h2>
+
+    <p class="register-subtitle">
+      Join SkillSwap and start learning or teaching
+    </p>
+
+    <!-- FORM -->
+    <form>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label class="form-label">Username</label>
+
+        <input
+          type="text"
+          name="username"
+          placeholder="john123"
+          class="form-input"
+          required
+        >
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label">Email</label>
+
+        <input
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          class="form-input"
+          required
+        >
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="form-label">Password</label>
+
+        <input
+          type="password"
+          name="password"
+          placeholder="••••••••"
+          class="form-input"
+          required
+        >
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="••••••••"
+          class="form-input"
+          required
+        >
+      </div>
+
+      <!-- Role -->
+      <div class="form-group">
+        <label class="form-label">
+          Account Type
+        </label>
+
+        <div class="role-container">
+
+          <label class="role-box">
+            <input type="radio" name="role" value="learner" checked>
+            🎓 Learner
+          </label>
+
+          <label class="role-box">
+            <input type="radio" name="role" value="teacher">
+            👨‍🏫 Teacher
+          </label>
+
+        </div>
+      </div>
+
+      <!-- Skill -->
+      <div class="form-group">
+        <label class="form-label">Skill</label>
+
+        <input
+          type="text"
+          name="skill"
+          placeholder="Python, UI/UX, Design..."
+          class="form-input"
+          required
+        >
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn-primary">
+        Register Now
+      </button>
+
+    </form>
+
+    <!-- Login -->
+    <p class="login-text">
+      Already have an account?
+      <a href="{% url 'skills:log1' %}">
+        Login
+      </a>
+    </p>
+
+  </div>
+
+</section>
+
+</body>
+</html>

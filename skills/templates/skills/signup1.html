@@ -1,0 +1,107 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+
+<h2>Sign Up</h2>
+<form method="POST">
+
+  {% csrf_token %}
+
+  <!-- Username -->
+  <div class="form-group">
+    <label class="form-label">
+      Username
+    </label>
+
+    {{ form.username }}
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <label class="form-label">
+      Email
+    </label>
+
+    {{ form.email }}
+  </div>
+
+  <!-- Password -->
+  <div class="form-group">
+    <label class="form-label">
+      Password
+    </label>
+
+    {{ form.password1 }}
+  </div>
+
+  <!-- Confirm Password -->
+  <div class="form-group">
+    <label class="form-label">
+      Confirm Password
+    </label>
+
+    {{ form.password2 }}
+  </div>
+
+  <!-- Role -->
+  <div class="form-group">
+
+    <label class="form-label">
+      Account Type
+    </label>
+
+    <div class="role-container">
+
+      <label class="role-box">
+        <input type="radio" name="role" value="learner" checked>
+        🎓 Learner
+      </label>
+
+      <label class="role-box">
+        <input type="radio" name="role" value="teacher">
+        👨‍🏫 Teacher
+      </label>
+
+    </div>
+
+  </div>
+
+  <!-- Skill -->
+  <div class="form-group">
+
+    <label class="form-label">
+      Skill
+    </label>
+
+    <input
+      type="text"
+      name="skill"
+      placeholder="Python, UI/UX, Design..."
+      class="form-input"
+      required
+    >
+
+  </div>
+
+  <!-- Submit -->
+  <button type="submit" class="btn-primary">
+    Register Now
+  </button>
+
+</form>
+
+<!-- Login -->
+<p class="login-text">
+
+  Already have an account?
+
+  <a href="{% url 'skills:log1' %}">
+    Login
+  </a>
+
+</p>
+{% endblock %}

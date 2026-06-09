@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Django OTP Auth</title>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+      <p style="font-weight:bold;">
+        Hi, {{ user.username }}! Welcome. 
+        <a href="{% url 'skills:logout' %}" 
+           style="color:red; text-decoration:none; margin-left:10px;">
+           Logout
+        </a>
+      </p>
+    {% endif %}
+
+    {% if messages %}
+      <ul>
+        {% for m in messages %}
+          <li>{{ m }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </body>
+</html>

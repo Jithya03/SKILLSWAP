@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Learner Profile | SkillSwap</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-slate-100 text-slate-800">
+
+<!-- NAVBAR -->
+
+<nav class="bg-white shadow">
+
+<div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+
+    <h1 class="text-2xl font-bold text-teal-600">
+        SkillSwap
+    </h1>
+
+    <div class="flex gap-6 items-center">
+
+        <a href="{% url 'skills:explore' %}"
+           class="hover:text-teal-600 transition">
+
+            Explore
+
+        </a>
+
+        <a href="{% url 'skills:learning_dashboard' %}"
+           class="hover:text-teal-600 transition">
+
+            My Learning
+
+        </a>
+
+        <a href="{% url 'skills:inbox' %}"
+           class="hover:text-teal-600 transition">
+
+            Messages
+
+        </a>
+
+    </div>
+
+</div>
+
+</nav>
+
+
+<!-- PROFILE FORM -->
+
+<section class="max-w-3xl mx-auto mt-12 mb-12">
+
+<div class="bg-white p-8 rounded-2xl shadow-lg">
+
+<h2 class="text-3xl font-bold mb-8 text-center text-teal-600">
+
+    Create Learner Profile
+
+</h2>
+
+
+<form method="POST"
+      enctype="multipart/form-data"
+      class="space-y-6">
+
+{% csrf_token %}
+
+
+<!-- PROFILE IMAGE -->
+
+<div>
+
+<label class="font-semibold block mb-3">
+
+    Profile Image
+
+</label>
+
+<div class="flex items-center gap-6">
+
+    <!-- IMAGE PREVIEW -->
+
+    <div>
+
+        {% if learner.profile_image %}
+
+        <img
+            id="preview"
+            src="{{ learner.profile_image.url }}"
+            class="w-28 h-28 rounded-full object-cover border-4 border-teal-500 shadow"
+        >
+
+        {% else %}
+
+        <img
+            id="preview"
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            class="w-28 h-28 rounded-full object-cover border-4 border-slate-300 shadow"
+        >
+
+        {% endif %}
+
+    </div>
+
+    <!-- FILE INPUT -->
+
+    <div>
+
+        <label
+            class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-3 rounded-xl cursor-pointer transition">
+
+            <i class="fa-solid fa-upload"></i>
+            Upload Image
+
+            <input
+                type="file"
+                name="profile_image"
+                id="profile_image"
+                accept="image/*"
+                class="hidden"
+            >
+
+        </label>
+
+        <p class="text-sm text-slate-500 mt-3">
+            JPG, PNG supported
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- FULL NAME -->
+
+<div>
+
+<label class="font-semibold">
+
+    Full Name
+
+</label>
+
+<input
+    type="text"
+    name="full_name"
+    value="{{ learner.user.username }}"
+    class="w-full border p-3 rounded-lg mt-1 outline-none focus:ring-2 focus:ring-teal-500"
+>
+
+</div>
+
+
+<!-- EMAIL -->
+
+<div>
+
+<label class="font-semibold">
+
+    Email
+
+</label>
+
+<input
+    type="email"
+    name="email"
+    value="{{ request.user.email }}"
+    class="w-full border p-3 rounded-lg mt-1 outline-none focus:ring-2 focus:ring-teal-500"
+>
+
+</div>
+
+
+<!-- BIO -->
+
+<div>
+
+<label class="font-semibold">
+
+    Bio
+
+</label>
+
+<textarea
+    name="bio"
+    rows="4"
+    class="w-full border p-3 rounded-lg mt-1 outline-none focus:ring-2 focus:ring-teal-500"
+>{{ learner.bio }}</textarea>
+
+</div>
+
+
+<!-- SKILL TO TEACH -->
+
+<div>
+
+<label class="font-semibold">
+
+    Skill You Can Teach
+
+</label>
+
+<input
+    type="text"
+    name="teach"
+    value="{{ learner.skill_to_teach }}"
+    class="w-full border p-3 rounded-lg mt-1 outline-none focus:ring-2 focus:ring-teal-500"
+>
+
+</div>
+
+
+<!-- SKILL TO LEARN -->
+
+<div>
+
+<label class="font-semibold">
+
+    Skill You Want to Learn
+
+</label>
+
+<input
+    type="text"
+    name="learn"
+    value="{{ learner.skill_to_learn }}"
+    class="w-full border p-3 rounded-lg mt-1 outline-none focus:ring-2 focus:ring-teal-500"
+>
+
+</div>
+
+
+<!-- INTERESTS -->
+
+<div>
+
+<label class="font-semibold block mb-3">
+
+    Select Your Interests
+
+</label>
+
+<div class="grid grid-cols-2 gap-4">
+
+<label class="flex items-center gap-2">
+<input type="checkbox" name="interests" value="Coding">
+Coding
+</label>
+
+<label class="flex items-center gap-2">
+<input type="checkbox" name="interests" value="Design">
+Design
+</label>
+
+<label class="flex items-center gap-2">
+<input type="checkbox" name="interests" value="Cooking">
+Cooking
+</label>
+
+<label class="flex items-center gap-2">
+<input type="checkbox" name="interests" value="Yoga">
+Yoga
+</label>
+
+<label class="flex items-center gap-2">
+<input type="checkbox" name="interests" value="Photography">
+Photography
+</label>
+
+<label class="flex items-center gap-2">
+<input type="checkbox" name="interests" value="Music">
+Music
+</label>
+
+</div>
+
+</div>
+
+
+<!-- SAVE BUTTON -->
+
+<div class="pt-4">
+
+<button
+    type="submit"
+    class="w-full bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl text-lg font-semibold transition shadow">
+
+    Save Profile
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- IMAGE PREVIEW SCRIPT -->
+
+<script>
+
+const imageInput = document.getElementById('profile_image');
+
+const preview = document.getElementById('preview');
+
+imageInput.addEventListener('change', function(event) {
+
+    const file = event.target.files[0];
+
+    if (file) {
+
+        preview.src = URL.createObjectURL(file);
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

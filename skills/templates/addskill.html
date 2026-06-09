@@ -1,0 +1,18 @@
+{% extends 'skills/base.html' %}
+{% block content %}
+
+<h2>Teach a Skill</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input name="title" placeholder="Skill Title"><br>
+    <textarea name="description"></textarea><br>
+    <select name="mode">
+        <option value="CREDIT">Credit</option>
+        <option value="PAID">Paid</option>
+    </select><br>
+    <input name="price" placeholder="Price (if paid)"><br>
+    <button type="submit">Add Skill</button>
+</form>
+
+{% endblock %}

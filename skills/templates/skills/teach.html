@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillSwap | Teach a Skill</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-slate-50 font-sans">
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+
+    <h1 class="text-2xl font-bold text-teal-600">
+      SkillSwap
+    </h1>
+
+    <div class="flex gap-6 items-center">
+
+      <a href="{% url 'skills:home' %}"
+         class="hover:text-teal-600">
+         Home
+      </a>
+
+      <a href="{% url 'skills:TeacherProfile' %}"
+         class="hover:text-teal-600">
+         Profile
+      </a>
+
+      <a href="{% url 'skills:logout' %}"
+         class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">
+         Logout
+      </a>
+
+    </div>
+  </div>
+</nav>
+
+<!-- FORM -->
+<section class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg mt-12 p-8">
+
+  <h2 class="text-3xl font-bold text-teal-600 mb-8">
+    Teach a Skill
+  </h2>
+
+  <form method="POST"enctype="multipart/form-data"class="space-y-6">
+
+    {% csrf_token %}
+
+    <!-- Full Name -->
+    <div>
+      <label class="block text-sm font-semibold mb-2">
+        Full Name
+      </label>
+
+      <input type="text"
+      name="full_name"
+      value="{{ teacher.full_name }}"
+      class="w-full border p-3 rounded-lg mt-1">
+      
+    </div>
+
+    <!-- Profile Image -->
+    <div>
+      <label class="block text-sm font-semibold mb-2">
+        Profile Image
+      </label>
+
+      <input
+        type="file"
+        name="profile_image"
+        class="w-full p-3 border border-slate-300 rounded-lg bg-white"
+      >
+    </div>
+
+    <!-- Skill -->
+    <div>
+      <label class="block text-sm font-semibold mb-2">
+        Skill
+      </label>
+
+      <input type="text"
+       name="skill"
+       value="{{ teacher.skill }}"
+       class="w-full border p-3 rounded-lg mt-1">
+    </div>
+
+    <!-- Bio -->
+    <div>
+      <label class="block text-sm font-semibold mb-2">
+        Description
+      </label>
+
+      <textarea
+name="bio"
+class="w-full border p-3 rounded-lg mt-1">{{ teacher.bio }}</textarea>
+    </div>
+
+    <!-- Experience -->
+    <div>
+      <label class="block text-sm font-semibold mb-2">
+        Experience
+      </label>
+
+      <input type="number"
+name="experience"
+value="{{ teacher.experience }}"
+class="w-full border p-3 rounded-lg mt-1">
+    </div>
+
+    <!-- Rate -->
+    <div>
+      <label class="block text-sm font-semibold mb-2">
+        Hourly Rate
+      </label>
+
+      <input type="text"
+name="rate"
+value="{{ teacher.rate }}"
+class="w-full border p-3 rounded-lg mt-1">
+    </div>
+
+    <!-- BUTTON -->
+    <div class="text-right">
+
+      <button
+        type="submit"
+        class="bg-teal-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-teal-700">
+        Save Profile
+      </button>
+
+    </div>
+
+  </form>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-12">
+  © 2026 SkillSwap · Learn by sharing
+</footer>
+
+</body>
+</html>

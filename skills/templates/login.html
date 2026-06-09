@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillSwap | Login</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <style>
+    .role-btn.active {
+      background-color: #0d9488;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 font-sans">
+
+<!-- NAVBAR -->
+<nav class="bg-white border-b py-4 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-teal-600">SkillSwap</h1>
+    <a href="{% url 'skills:home' %}" class="text-teal-600 font-semibold hover:underline">Back to Home</a>
+  </div>
+</nav>
+
+<!-- LOGIN CARD -->
+<section class="flex items-center justify-center min-h-screen px-4">
+  <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-10">
+
+    <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Login to SkillSwap</h2>
+    <p class="text-center text-slate-500 mb-6">Learn or teach skills for free</p>
+
+    <!-- ROLE SELECTION -->
+    <div class="mb-8">
+      <label class="block text-sm font-medium text-slate-700 mb-3 text-center">
+        Select Your Role
+      </label>
+
+      <div class="flex gap-4">
+        <button type="button" onclick="selectRole(this, 'learner')" 
+          class="role-btn flex-1 border border-slate-300 py-3 rounded-lg font-semibold transition">
+          🎓 Learner
+
+        </button>
+
+        <button type="button" onclick="selectRole(this, 'teacher')" 
+          class="role-btn flex-1 border border-slate-300 py-3 rounded-lg font-semibold transition">
+          👨‍🏫 Teacher
+        </button>
+      </div>
+
+      <input type="hidden" id="role" required>
+    </div>
+
+    <!-- Login Form -->
+<!-- Login Form -->
+
+<form method="POST" class="space-y-6">
+
+    {% csrf_token %}
+
+    <!-- Username -->
+    <div>
+        <label class="block text-sm font-medium text-slate-700">
+            Username
+        </label>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Enter your username"
+            class="mt-2 w-full px-4 py-3 border rounded-lg outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-600"
+            required
+        >
+    </div>
+
+    <!-- Password -->
+    <div>
+        <label class="block text-sm font-medium text-slate-700">
+            Password
+        </label>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="****"
+            class="mt-2 w-full px-4 py-3 border rounded-lg outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-600"
+            required
+        >
+    </div>
+
+    <!-- Login Button -->
+    <button
+        type="submit"
+        class="w-full bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition">
+
+        Login
+
+    </button>
+
+</form>
+
+    <!-- Sign Up -->
+    <p class="text-center text-slate-500 mt-6 text-sm">
+      Don't have an account?
+      <a href="{% url 'skills:signup' %}" class="text-teal-600 hover:underline font-semibold">
+        Sign Up
+      </a>
+    </p>
+
+  </div>
+</section>
+
+<script>
+  
+</script>
+</body>
+</html>

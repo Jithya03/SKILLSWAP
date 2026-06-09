@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Search Results</title>
+
+    <style>
+
+        .teacher-container{
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .teacher-card{
+            width: 300px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px #ddd;
+            text-align: center;
+            background: white;
+        }
+
+        .teacher-card img{
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .teacher-card button{
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .teacher-card button:hover{
+            background-color: #45a049;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <h2>
+        Teachers for "{{ query }}"
+    </h2>
+
+    <div class="teacher-container">
+
+    {% for teacher in teachers %}
+
+    <div class="teacher-card">
+
+        <img
+            src="{{ teacher.profile_image.url }}"
+            width="120"
+            height="120"
+        >
+
+        <h3>
+            {{ teacher.full_name }}
+        </h3>
+
+        <p>
+            Skill: {{ teacher.skill }}
+        </p>
+
+        <p>
+            Experience:
+            {{ teacher.experience }} years
+        </p>
+
+        <p>
+            {{ teacher.bio }}
+        </p>
+
+        <a href="{% url 'chat' teacher.user.id %}">
+            <button>
+                Message
+            </button>
+        </a>
+
+    </div>
+
+    {% empty %}
+
+    <p>
+        No teachers found
+    </p>
+
+    {% endfor %}
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How It Works | SkillSwap</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-white text-slate-800">
+
+<!-- NAVBAR -->
+<nav class="bg-white border-b sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-teal-600">SkillSwap</h1>
+
+    <div class="flex gap-6 items-center">
+      <a href="{% url 'skills:home' %}" class="hover:text-teal-600">home</a>
+      <a href="{% url 'skills:How_it_Works' %}" class="text-teal-600 font-semibold">How it Works</a>
+      <a href="{% url 'skills:teach' %}" class="hover:text-teal-600">Teach</a>
+      <a href="{% url 'skills:login' %}" class="border px-4 py-2 rounded-lg hover:bg-slate-50">Login</a>
+      <a href="{% url 'skills:signup' %}" class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Sign up</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="bg-teal-900 text-white py-24 text-center px-4">
+  <h2 class="text-5xl font-extrabold mb-6">How SkillSwap Works</h2>
+  <p class="text-xl text-teal-100 max-w-2xl mx-auto">
+    Learn and teach skills through a simple exchange system — no money involved.
+  </p>
+</section>
+
+<!-- STEPS SECTION -->
+<section class="max-w-7xl mx-auto px-4 py-20">
+  <div class="grid md:grid-cols-3 gap-12 text-center">
+
+    <!-- Step 1 -->
+    <div class="p-8 border rounded-2xl hover:shadow-xl transition">
+      <div class="text-5xl text-teal-600 mb-6">
+        <i class="fa-solid fa-user-plus"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4">1. Create a Profile</h3>
+      <p class="text-slate-600">
+        Sign up and list the skills you can teach and the skills you want to learn.
+      </p>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="p-8 border rounded-2xl hover:shadow-xl transition">
+      <div class="text-5xl text-teal-600 mb-6">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4">2. Find a Match</h3>
+      <p class="text-slate-600">
+        Browse available skills and connect with someone who matches your interests.
+      </p>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="p-8 border rounded-2xl hover:shadow-xl transition">
+      <div class="text-5xl text-teal-600 mb-6">
+        <i class="fa-solid fa-repeat"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4">3. Swap Skills</h3>
+      <p class="text-slate-600">
+        Schedule sessions and exchange knowledge in a fair, skill-for-skill system.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="bg-slate-50 py-20 px-4">
+  <div class="max-w-6xl mx-auto text-center">
+    <h3 class="text-3xl font-bold mb-12">Why Choose SkillSwap?</h3>
+
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <div>
+        <i class="fa-solid fa-wallet text-4xl text-teal-600 mb-4"></i>
+        <h4 class="font-bold text-xl mb-2">Zero Cost</h4>
+        <p class="text-slate-600">Learn new skills without spending money.</p>
+      </div>
+
+      <div>
+        <i class="fa-solid fa-people-group text-4xl text-teal-600 mb-4"></i>
+        <h4 class="font-bold text-xl mb-2">Community Driven</h4>
+        <p class="text-slate-600">Connect with real people passionate about sharing.</p>
+      </div>
+
+      <div>
+        <i class="fa-solid fa-chart-line text-4xl text-teal-600 mb-4"></i>
+        <h4 class="font-bold text-xl mb-2">Personal Growth</h4>
+        <p class="text-slate-600">Develop multiple skills while teaching your own.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-teal-600 text-white py-20 text-center">
+  <h3 class="text-4xl font-bold mb-6">Ready to start swapping?</h3>
+  <p class="mb-8 text-teal-100">Join today and grow your skills together.</p>
+  <a href="{% url 'skills:signup' %}" class="bg-white text-teal-700 px-8 py-3 rounded-xl font-bold">
+    Get Started
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm">
+  © 2026 SkillSwap · Learn by sharing
+</footer>
+
+</body>
+</html>

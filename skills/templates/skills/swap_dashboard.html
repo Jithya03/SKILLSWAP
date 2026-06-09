@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skill Swap</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100">
+
+<div class="max-w-5xl mx-auto mt-10">
+
+    <h1 class="text-4xl font-bold text-teal-600 mb-8">
+        Skill Swap Dashboard
+    </h1>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- Active Swaps -->
+        <div class="bg-white p-6 rounded-2xl shadow">
+        <!-- Active Swaps -->
+
+<a href="{% url 'skills:active_swaps' %}"
+   class="block bg-white p-6 rounded-2xl shadow hover:shadow-xl transition cursor-pointer">
+
+    <h2 class="text-2xl font-bold mb-3">
+        Active Swaps
+    </h2>
+
+    <p class="text-slate-500">
+        Manage your current skill exchange partners.
+    </p>
+
+</a>
+
+        <!-- Learning -->
+        <div class="bg-white p-6 rounded-2xl shadow">
+            <h2 class="text-2xl font-bold mb-3">
+                Learning
+            </h2>
+
+            <p class="text-slate-500">
+                Track skills you are learning.
+            </p>
+        </div>
+
+        <!-- Teaching -->
+        <div class="bg-white p-6 rounded-2xl shadow">
+            <h2 class="text-2xl font-bold mb-3">
+                Teaching
+            </h2>
+
+            <p class="text-slate-500">
+                Track students learning from you.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
